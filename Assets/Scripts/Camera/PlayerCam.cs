@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerCam : MonoBehaviour
 {
     private GameObject playerGO;
+    private bool stopInput;
 
     public float sensX;
     public float sensY;
@@ -27,12 +29,20 @@ public class PlayerCam : MonoBehaviour
             playerTransform = playerGO.GetComponent<Transform>();
         }
     }
+    private void FixedUpdate()
+    {
+
+        TestTools();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        RotateCharacter();
-        
+
+        if (!stopInput)
+        {
+            RotateCharacter();
+        }
     }
     private void RotateCharacter()
     {
@@ -47,6 +57,14 @@ public class PlayerCam : MonoBehaviour
         playerTransform.rotation = Quaternion.Euler(0, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 
+    }
+
+    private void TestTools()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            stopInput = stopInput ? false : true;
+        }
     }
 
     private void CenterCamera()

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMov : MonoBehaviour {
+public class PlayerMov : MonoBehaviour
+{
 
     [Header("Movement")]
     public float moveSpeed;
@@ -28,9 +29,11 @@ public class PlayerMov : MonoBehaviour {
     public float mSpeed = 5f;
 
     private bool jumping;
+    private bool stopInput;
 
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -40,34 +43,36 @@ public class PlayerMov : MonoBehaviour {
         mAnimator = GetComponent<Animator>();
     }
 
-     void FixedUpdate()
+    void FixedUpdate()
     {
-        if (mRigidBody.velocity.y == 0)
-        {
-            jumping = false;
-        }
+        TestTools();
 
-        MovePlayer();
+        if (!stopInput)
+        {
+            if (mRigidBody.velocity.y == 0)
+            {
+                jumping = false;
+            }
+
+            MovePlayer();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        //if (grounded)
+        //{
+        //    rb.drag = groundDrag;
+        //} else
+        //{
+        //    rb.drag = 0;
+        //}
 
-        MyInput();
-
-        if (grounded)
+        if (!stopInput)
         {
-            rb.drag = groundDrag;
-        } else
-        {
-            rb.drag = 0;
-        }
-        if (Input.GetButtonDown("Jump") && !jumping)
-        {
-            jumping = true;
-            mRigidBody.AddForce(Vector3.up * 200);
+            MyInput();
         }
     }
 
@@ -82,9 +87,16 @@ public class PlayerMov : MonoBehaviour {
         if (verticalValue || horizontalValue)
         {
             mAnimator.SetBool("isMoving", true);
-        } else if (!verticalValue && !horizontalValue)
+        }
+        else if (!verticalValue && !horizontalValue)
         {
             mAnimator.SetBool("isMoving", false);
+        }
+
+        if (Input.GetButtonDown("Jump") && !jumping)
+        {
+            jumping = true;
+            mRigidBody.AddForce(Vector3.up * 500);
         }
     }
 
@@ -92,6 +104,16 @@ public class PlayerMov : MonoBehaviour {
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+    }
+
+    private void TestTools()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            stopInput = stopInput ? false : true;
+            Cursor.lockState = stopInput ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = stopInput ? true : false;
+        }
     }
 
 }

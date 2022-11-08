@@ -31,7 +31,6 @@ public class PlayerMov : MonoBehaviour
     private bool jumping;
     private bool stopInput;
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -45,35 +44,12 @@ public class PlayerMov : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (!stopInput)
-        //{
-        //    if (mRigidBody.velocity.y == 0)
-        //    {
-        //        jumping = false;
-        //    }
-
-        //    MovePlayer();
-        //}
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        //if (grounded)
-        //{
-        //    rb.drag = groundDrag;
-        //} else
-        //{
-        //    rb.drag = 0;
-        //}
+
         TestTools();
-
-        if (!stopInput)
-        {
-            MyInput();
-        }
-
 
         if (!stopInput)
         {
@@ -82,6 +58,7 @@ public class PlayerMov : MonoBehaviour
                 jumping = false;
             }
 
+            MyInput();
             MovePlayer();
         }
     }
@@ -113,8 +90,6 @@ public class PlayerMov : MonoBehaviour
     private void MovePlayer()
     {
         Vector3 vector = new(horizontalInput, 0, verticalInput);
-        print(vector * moveSpeed * Time.deltaTime);
-
         this.transform.Translate(vector * moveSpeed * Time.deltaTime);
     }
 

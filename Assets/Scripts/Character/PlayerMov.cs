@@ -45,16 +45,15 @@ public class PlayerMov : MonoBehaviour
 
     void FixedUpdate()
     {
+        //if (!stopInput)
+        //{
+        //    if (mRigidBody.velocity.y == 0)
+        //    {
+        //        jumping = false;
+        //    }
 
-        if (!stopInput)
-        {
-            if (mRigidBody.velocity.y == 0)
-            {
-                jumping = false;
-            }
-
-            MovePlayer();
-        }
+        //    MovePlayer();
+        //}
     }
 
     // Update is called once per frame
@@ -73,6 +72,17 @@ public class PlayerMov : MonoBehaviour
         if (!stopInput)
         {
             MyInput();
+        }
+
+
+        if (!stopInput)
+        {
+            if (mRigidBody.velocity.y == 0)
+            {
+                jumping = false;
+            }
+
+            MovePlayer();
         }
     }
 
@@ -102,8 +112,10 @@ public class PlayerMov : MonoBehaviour
 
     private void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        Vector3 vector = new(horizontalInput, 0, verticalInput);
+        print(vector * moveSpeed * Time.deltaTime);
+
+        this.transform.Translate(vector * moveSpeed * Time.deltaTime);
     }
 
     private void TestTools()

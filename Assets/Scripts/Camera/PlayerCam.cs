@@ -32,12 +32,12 @@ public class PlayerCam : MonoBehaviour
     private void FixedUpdate()
     {
 
-        TestTools();
     }
 
     // Update is called once per frame
     void Update()
     {
+        TestTools();
 
         if (!stopInput)
         {

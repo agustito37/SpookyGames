@@ -45,7 +45,6 @@ public class PlayerMov : MonoBehaviour
 
     void FixedUpdate()
     {
-        TestTools();
 
         if (!stopInput)
         {
@@ -69,6 +68,7 @@ public class PlayerMov : MonoBehaviour
         //{
         //    rb.drag = 0;
         //}
+        TestTools();
 
         if (!stopInput)
         {

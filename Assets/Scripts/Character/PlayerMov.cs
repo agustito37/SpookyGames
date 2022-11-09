@@ -71,41 +71,13 @@ public class PlayerMov : MonoBehaviour
         bool verticalValue = verticalInput > 0f || verticalInput < 0f;
         bool horizontalValue = horizontalInput > 0f || horizontalInput < 0f;
 
-        //if (verticalValue || horizontalValue)
-        //{
-        //    mAnimator.SetBool("isMoving", true);
-        //}
-        //else if (!verticalValue && !horizontalValue)
-        //{
-        //    mAnimator.SetBool("isMoving", false);
-        //}
-
-        if (verticalValue)
+        if (verticalValue || horizontalValue)
         {
             mAnimator.SetBool("isMoving", true);
-            mAnimator.SetBool("isMovingRight", false);
-            mAnimator.SetBool("isMovingLeft", false);
         }
-        else
+        else if (!verticalValue && !horizontalValue)
         {
             mAnimator.SetBool("isMoving", false);
-        }
-
-        if (horizontalInput > 0f)
-        {
-            mAnimator.SetBool("isMovingRight", true);
-            mAnimator.SetBool("isMoving", false);
-            mAnimator.SetBool("isMovingLeft", false);
-        }
-        else if (horizontalInput < 0f)
-        {
-            mAnimator.SetBool("isMovingLeft", true);
-            mAnimator.SetBool("isMovingRight", false);
-            mAnimator.SetBool("isMoving", false);
-        } else
-        {
-            mAnimator.SetBool("isMovingLeft", false);
-            mAnimator.SetBool("isMovingRight", false);
         }
 
         if (Input.GetButtonDown("Jump") && !jumping)

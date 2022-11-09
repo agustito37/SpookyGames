@@ -2,7 +2,7 @@
 
 Git:
   
-  * git clone https://github.com/lom-games-dev/SpookyGame.git
+  * git clone https://github.com/agustito37/SpookyGames.git
   
 Requirements:
 
